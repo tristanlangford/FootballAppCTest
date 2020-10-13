@@ -17,9 +17,9 @@ export class CreateTeam extends Component {
 
     render() {
         if (this.state.isLoaded === false) { 
-            return <div>No Teams</div>
+            return <div>...Loading</div>
         } else {
-            return <div>{this.state.teams[0].name}</div>
+            return <div>{this.state.teams.map(team => (<li key={team.name}> {team.name} Colours: {team.colour}</li>))}</div>
         }
     }
         

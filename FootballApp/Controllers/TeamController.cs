@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using FootballApp.Models;
+using FootballApp.Repositories;
 
 namespace FootballApp.Controllers
 {
@@ -15,22 +15,19 @@ namespace FootballApp.Controllers
 
         private readonly ILogger<TeamController> _logger;
 
+        public TeamRepository teamRepository;
+
         public TeamController(ILogger<TeamController> logger)
         {
             _logger = logger;
+            teamRepository = new TeamRepository();
         }
 
         [HttpGet]
-        public Team[] Get()
+        public IActionResult Get()
         {
-            Team team1 = new Team();
-            team1.name = "Smith";
-            team1.colour = "Orange";
-            Team team2 = new Team();
-            team2.name = "Baker";
-            team2.colour = "White";
-            List<Team> AllTeams = new List<Team> { team1, team2 };
-            return AllTeams.ToArray();
+            var response = teamRepository.GetAll();
+            return Ok(response);
         }
     }
 }
